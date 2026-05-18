@@ -4,15 +4,50 @@ import path from "path";
 const storage = multer.diskStorage({
 
   destination: (req, file, cb) => {
-    cb(null, path.join(process.cwd(), "uploads"));
+
+    cb(null, path.resolve("uploads"));
+
   },
 
   filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
+
+    cb(
+      null,
+      `${Date.now()}-${file.originalname}`
+    );
+
   },
 
 });
 
-const upload = multer({ storage });
+const fileFilter = (req, file, cb) => {
+// Only accept PDF files
+  if (file.mimetype === "application/pdf") {
+
+    cb(null, true);
+
+  } else {
+
+    cb(
+      new Error("Only PDF files are allowed"),
+      false
+    );
+
+  }
+
+};
+
+const upload = multer({
+
+
+  storage,
+
+  fileFilter,
+//Size limiter 10MB.
+limits: {
+    fileSize: 10 * 1024 * 1024,
+  },
+
+});
 
 export default upload;
