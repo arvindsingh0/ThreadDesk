@@ -2,11 +2,12 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../services/api";
 
-function Login() {
+function Signup() {
 
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
   });
@@ -27,7 +28,7 @@ function Login() {
     try {
 
       const response = await API.post(
-        "/auth/login",
+        "/auth/signup",
         formData
       );
 
@@ -42,7 +43,7 @@ function Login() {
 
       console.log(error);
 
-      alert("Login failed");
+      alert("Signup failed");
 
     }
 
@@ -52,9 +53,16 @@ function Login() {
 
     <div>
 
-      <h1>Login</h1>
+      <h1>Signup</h1>
 
       <form onSubmit={handleSubmit}>
+
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          onChange={handleChange}
+        />
 
         <input
           type="email"
@@ -71,13 +79,13 @@ function Login() {
         />
 
         <button type="submit">
-          Login
+          Signup
         </button>
 
       </form>
 
-      <Link to="/signup">
-        Create account
+      <Link to="/">
+        Already have an account?
       </Link>
 
     </div>
@@ -86,4 +94,4 @@ function Login() {
 
 }
 
-export default Login;
+export default Signup;
