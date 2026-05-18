@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-
 dotenv.config();
+
 import OpenAI from "openai";
 
 const client = new OpenAI({
@@ -22,7 +22,6 @@ const generateEmbedding = async (text) => {
   } catch (error) {
 
     console.log("EMBEDDING ERROR:");
-
     console.log(error);
 
     throw error;

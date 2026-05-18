@@ -1,7 +1,7 @@
 import extractTextFromPDF from "../services/pdfService.js";
 import chunkText from "../services/chunkService.js";
 import generateEmbedding from "../services/embeddingService.js";
-
+import Vector from "../models/Vector.js";
 
 export const uploadDocument = async (req, res) => {
 
@@ -18,14 +18,24 @@ export const uploadDocument = async (req, res) => {
 
     const filePath = req.file.path;
 
+    // Extract text from PDF
     const extractedText = await extractTextFromPDF(filePath);
 
-    console.log(extractedText);
-
+    // Split text into chunks
     const chunks = chunkText(extractedText);
 
-    const embedding = await generateEmbedding(chunks[0]);
+    // Generate embeddings and store in MongoDB
+    for (const chunk of chunks) {
 
+      const embedding = await generateEmbedding(chunk);
+
+      await Vector.create({
+        chunk,
+        embedding,
+        documentName: req.file.originalname,
+      });
+
+    }
 
     return res.status(200).json({
       success: true,
