@@ -1,4 +1,5 @@
 import extractTextFromPDF from "../services/pdfService.js";
+import chunkText from "../services/chunkService.js";
 
 export const uploadDocument = async (req, res) => {
 
@@ -19,6 +20,10 @@ export const uploadDocument = async (req, res) => {
 
     console.log(extractedText);
 
+    const chunks = chunkText(extractedText);
+
+    console.log(chunks);   
+    
     return res.status(200).json({
       success: true,
       message: "PDF uploaded and text extracted successfully",
