@@ -1,31 +1,38 @@
+import extractTextFromPDF from "../services/pdfService.js";
+
 export const uploadDocument = async (req, res) => {
+
   try {
 
-    console.log("REQ.FILE:");
-    console.log(req.file);
-
     if (!req.file) {
+
       return res.status(400).json({
         success: false,
         message: "No file uploaded",
       });
+
     }
 
-    console.log(req.file.path);
+    const filePath = req.file.path;
 
-    res.status(200).json({
+    const extractedText = await extractTextFromPDF(filePath);
+
+    console.log(extractedText);
+
+    return res.status(200).json({
       success: true,
-      message: "PDF uploaded successfully",
-      file: req.file,
+      message: "PDF uploaded and text extracted successfully",
     });
 
   } catch (error) {
 
     console.log(error);
 
-    res.status(500).json({
+    return res.status(500).json({
       success: false,
       message: "Upload failed",
     });
+
   }
+
 };
