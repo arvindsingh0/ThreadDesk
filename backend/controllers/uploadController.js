@@ -33,6 +33,7 @@ export const uploadDocument = async (req, res) => {
         chunk,
         embedding,
         documentName: req.file.originalname,
+        uploadedBy: req.user.id,
       });
 
     }

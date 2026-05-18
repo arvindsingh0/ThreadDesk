@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 
+
 function Dashboard() {
 
   const [question, setQuestion] = useState("");
@@ -207,7 +208,7 @@ const handleLogout = () => {
         <div className="border-b border-zinc-800 p-4">
 
           <h2 className="text-xl font-semibold">
-            AI Support Assistant
+            Admin testing environment
           </h2>
 
         </div>
@@ -289,7 +290,7 @@ const handleLogout = () => {
         </div>
 
       </div>
-
+     
     </div>
 
   );

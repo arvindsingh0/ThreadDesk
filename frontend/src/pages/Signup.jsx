@@ -51,42 +51,76 @@ function Signup() {
 
   return (
 
-    <div>
+    <div className="min-h-screen bg-black flex items-center justify-center px-4">
 
-      <h1>Signup</h1>
+      <div className="w-full max-w-md bg-zinc-900 p-8 rounded-2xl border border-zinc-800">
 
-      <form onSubmit={handleSubmit}>
+        <h1 className="text-3xl font-bold text-white mb-2">
 
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          onChange={handleChange}
-        />
+          Create Account
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          onChange={handleChange}
-        />
+        </h1>
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-        />
+        <p className="text-zinc-400 mb-8">
 
-        <button type="submit">
-          Signup
-        </button>
+          Start using ThreadDesk AI.
 
-      </form>
+        </p>
 
-      <Link to="/">
-        Already have an account?
-      </Link>
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-4"
+        >
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            onChange={handleChange}
+            className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3 text-white outline-none focus:border-white"
+          />
+
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            onChange={handleChange}
+            className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3 text-white outline-none focus:border-white"
+          />
+
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+            className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3 text-white outline-none focus:border-white"
+          />
+
+          <button
+            type="submit"
+            className="w-full bg-white text-black py-3 rounded-xl font-semibold hover:opacity-90 transition"
+          >
+
+            Signup
+
+          </button>
+
+        </form>
+
+        <p className="text-zinc-400 mt-6 text-center">
+
+          Already have an account?{" "}
+
+          <Link
+            to="/"
+            className="text-white hover:underline"
+          >
+            Login
+          </Link>
+
+        </p>
+
+      </div>
 
     </div>
 

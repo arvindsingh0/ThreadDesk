@@ -13,7 +13,9 @@ export const askQuestion = async (req, res) => {
     const questionEmbedding = await generateEmbedding(question);
 
     // Fetch stored vectors
-    const storedVectors = await Vector.find();
+    const storedVectors = await Vector.find({
+  uploadedBy: req.user.id,
+});
 
     // Calculate similarity
     const scoredChunks = storedVectors.map((item) => {
@@ -36,7 +38,7 @@ export const askQuestion = async (req, res) => {
     );
 
     // Top 3 chunks
-    const topChunks = scoredChunks.slice(0, 3);
+    const topChunks = scoredChunks.slice(0, 8);
 
     // Combine chunks into one context string
     const context = topChunks
