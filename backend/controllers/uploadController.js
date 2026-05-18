@@ -26,9 +26,6 @@ export const uploadDocument = async (req, res) => {
 
     const embedding = await generateEmbedding(chunks[0]);
 
-    console.log(embedding);
-
-    console.log(chunks);   
 
     return res.status(200).json({
       success: true,
