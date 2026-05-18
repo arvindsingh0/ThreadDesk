@@ -1,5 +1,6 @@
 import generateEmbedding from "../services/embeddingService.js";
 import cosineSimilarity from "../services/similarityService.js";
+import generateAnswer from "../services/llmService.js";
 import Vector from "../models/Vector.js";
 
 export const askQuestion = async (req, res) => {
@@ -11,10 +12,10 @@ export const askQuestion = async (req, res) => {
     // Generate embedding for user question
     const questionEmbedding = await generateEmbedding(question);
 
-    // Fetch all stored vectors
+    // Fetch stored vectors
     const storedVectors = await Vector.find();
 
-    // Compare similarity
+    // Calculate similarity
     const scoredChunks = storedVectors.map((item) => {
 
       const similarity = cosineSimilarity(
@@ -34,11 +35,23 @@ export const askQuestion = async (req, res) => {
       (a, b) => b.similarity - a.similarity
     );
 
-    // Get top 3 relevant chunks
+    // Top 3 chunks
     const topChunks = scoredChunks.slice(0, 3);
+
+    // Combine chunks into one context string
+    const context = topChunks
+      .map((item) => item.chunk)
+      .join("\n\n");
+
+    // Generate grounded answer
+    const answer = await generateAnswer(
+      context,
+      question
+    );
 
     res.status(200).json({
       success: true,
+      answer,
       topChunks,
     });
 
@@ -48,7 +61,7 @@ export const askQuestion = async (req, res) => {
 
     res.status(500).json({
       success: false,
-      message: "Retrieval failed",
+      message: "Chat failed",
     });
 
   }
