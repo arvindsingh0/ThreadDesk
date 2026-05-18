@@ -1,5 +1,7 @@
 import extractTextFromPDF from "../services/pdfService.js";
 import chunkText from "../services/chunkService.js";
+import generateEmbedding from "../services/embeddingService.js";
+
 
 export const uploadDocument = async (req, res) => {
 
@@ -22,11 +24,15 @@ export const uploadDocument = async (req, res) => {
 
     const chunks = chunkText(extractedText);
 
+    const embedding = await generateEmbedding(chunks[0]);
+
+    console.log(embedding);
+
     console.log(chunks);   
-    
+
     return res.status(200).json({
       success: true,
-      message: "PDF uploaded and text extracted successfully",
+      message: "PDF processed successfully",
     });
 
   } catch (error) {
