@@ -20,6 +20,8 @@ Answer the user's question ONLY using the provided context.
 If the answer is not present in the context, say:
 "I could not find that information in the uploaded documents."
 
+and do not attempt to fabricate an answer just say you couldn't find it and tell the user that you are sorry and you didnt understand what they meant.
+
 Context:
 ${context}
 
