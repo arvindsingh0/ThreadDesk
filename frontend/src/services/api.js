@@ -1,4 +1,5 @@
 import axios from "axios";
+
 console.log("API FILE LOADED");
 
 const API = axios.create({
@@ -15,10 +16,15 @@ API.interceptors.request.use((req) => {
 
     req.headers.Authorization = `Bearer ${token}`;
 
-    console.log("AUTH HEADER:", req.headers.Authorization);
+    console.log(
+      "AUTH HEADER:",
+      req.headers.Authorization
+    );
 
   }
 
   return req;
 
 });
+
+export default API;
