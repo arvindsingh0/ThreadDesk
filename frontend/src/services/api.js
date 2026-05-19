@@ -1,4 +1,5 @@
 import axios from "axios";
+console.log("API FILE LOADED");
 
 const API = axios.create({
   baseURL: "https://threaddesk.onrender.com/api",
