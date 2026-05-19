@@ -32,12 +32,7 @@ function Dashboard() {
       const response = await API.post(
         "/upload",
         formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "multipart/form-data",
-          },
-        }
+
       );
 
       alert(response.data.message);
@@ -81,11 +76,7 @@ function Dashboard() {
       {
         question,
       },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
+      
     );
 
     const aiMessage = {
