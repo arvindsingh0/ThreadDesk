@@ -1,13 +1,8 @@
-import fs from "fs";
 import * as pdfjsLib from "pdfjs-dist/legacy/build/pdf.mjs";
 
-const extractTextFromPDF = async (filePath) => {
+const extractTextFromPDF = async (dataBuffer) => {
 
   try {
-
-    const dataBuffer = new Uint8Array(
-      fs.readFileSync(filePath)
-    );
 
     const pdf = await pdfjsLib.getDocument({
       data: dataBuffer,
