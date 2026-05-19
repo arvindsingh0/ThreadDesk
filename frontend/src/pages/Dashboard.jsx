@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
+import { uploadPDF } from "../api/uploadApi";
 
 
 function Dashboard() {
@@ -29,13 +30,8 @@ function Dashboard() {
 
       const token = localStorage.getItem("token");
 
-      const response = await API.post(
-        "/upload",
-        formData,
-
-      );
-
-      alert(response.data.message);
+      const response = await uploadPDF(formData);
+      alert(response.message);
 
     } catch (error) {
 
