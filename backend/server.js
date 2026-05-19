@@ -24,7 +24,31 @@ const limiter = rateLimit({
 
 });
 
-app.use(cors());
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://thread-desk-2s8to6cfp-arvindsingh0s-projects.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+
+      if (!origin || allowedOrigins.includes(origin)) {
+
+        callback(null, true);
+
+      } else {
+
+        callback(new Error("Not allowed by CORS"));
+
+      }
+
+    },
+
+    credentials: true,
+  })
+);
+
 app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
