@@ -11,6 +11,8 @@ dotenv.config();
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 const limiter = rateLimit({
 
   windowMs: 15 * 60 * 1000,
@@ -35,6 +37,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/upload", uploadRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/auth", authRoutes);
+
 
 const PORT = process.env.PORT || 5001;
 

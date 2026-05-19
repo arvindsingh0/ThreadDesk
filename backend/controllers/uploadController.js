@@ -17,9 +17,9 @@ export const uploadDocument = async (req, res) => {
     }
 
     const data = new Uint8Array(req.file.buffer);
-    
+
     // Extract text from PDF
-    const extractedText = await extractTextFromPDF(filePath);
+    const extractedText = await extractTextFromPDF(data);
 
     // Split text into chunks
     const chunks = chunkText(extractedText);
