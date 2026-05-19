@@ -50,21 +50,58 @@ function Login() {
 
   return (
 
-    <div className="min-h-screen bg-black flex items-center justify-center px-4">
+    <div className="min-h-screen bg-black relative overflow-hidden flex items-center justify-center px-4">
 
-      <div className="w-full max-w-md bg-zinc-900 p-8 rounded-2xl border border-zinc-800">
+      {/* Background Glow */}
 
-        <h1 className="text-3xl font-bold text-white mb-2">
+      <div className="absolute w-[500px] h-[500px] bg-purple-500/20 blur-[120px] rounded-full top-[-150px] left-[-100px]" />
 
-          Welcome Back
+      <div className="absolute w-[400px] h-[400px] bg-blue-500/20 blur-[120px] rounded-full bottom-[-150px] right-[-100px]" />
 
-        </h1>
+      {/* Grid Overlay */}
 
-        <p className="text-zinc-400 mb-8">
+      <div
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, #27272a 1px, transparent 1px), linear-gradient(to bottom, #27272a 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
 
-          Login to continue using ThreadDesk.
+      {/* Card */}
 
-        </p>
+      <div className="relative z-10 w-full max-w-md bg-white/5 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl">
+
+        {/* Branding */}
+
+        <div className="mb-8">
+
+          <h1 className="text-4xl font-bold text-white mb-2">
+            ThreadDesk
+          </h1>
+
+          <p className="text-zinc-400">
+            Let your team focus on growth, not repetitive support queries.
+          </p>
+
+        </div>
+
+        {/* Heading */}
+
+        <div className="mb-8">
+
+          <h2 className="text-2xl font-semibold text-white mb-2">
+            Welcome back
+          </h2>
+
+          <p className="text-zinc-400">
+            Login to continue.
+          </p>
+
+        </div>
+
+        {/* Form */}
 
         <form
           onSubmit={handleSubmit}
@@ -76,7 +113,7 @@ function Login() {
             name="email"
             placeholder="Email"
             onChange={handleChange}
-            className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3 text-white outline-none focus:border-white"
+            className="w-full bg-black/40 border border-zinc-700 rounded-xl px-4 py-3 text-white outline-none focus:border-white transition"
           />
 
           <input
@@ -84,7 +121,7 @@ function Login() {
             name="password"
             placeholder="Password"
             onChange={handleChange}
-            className="w-full bg-black border border-zinc-700 rounded-xl px-4 py-3 text-white outline-none focus:border-white"
+            className="w-full bg-black/40 border border-zinc-700 rounded-xl px-4 py-3 text-white outline-none focus:border-white transition"
           />
 
           <button
@@ -98,6 +135,8 @@ function Login() {
 
         </form>
 
+        {/* Footer */}
+
         <p className="text-zinc-400 mt-6 text-center">
 
           Don’t have an account?{" "}
@@ -106,7 +145,9 @@ function Login() {
             to="/signup"
             className="text-white hover:underline"
           >
+
             Signup
+
           </Link>
 
         </p>
