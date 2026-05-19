@@ -16,8 +16,8 @@ export const uploadDocument = async (req, res) => {
 
     }
 
-    const filePath = req.file.path;
-
+    const data = new Uint8Array(req.file.buffer);
+    
     // Extract text from PDF
     const extractedText = await extractTextFromPDF(filePath);
 
