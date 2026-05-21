@@ -16,6 +16,10 @@ const vectorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  tenantKey: {
+  type: String,
+  required: true,
+  }, 
   uploadedBy: {
   type: mongoose.Schema.Types.ObjectId,
   ref: "User",

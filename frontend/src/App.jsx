@@ -5,7 +5,7 @@ import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 
-console.log("THIS IS THE REAL FRONTEND");
+
 function App() {
 
   return (
