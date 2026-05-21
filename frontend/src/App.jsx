@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
+import SupportWidgetDemo from "./pages/SupportWidgetDemo";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 
@@ -17,6 +18,8 @@ function App() {
         <Route path="/" element={<Login />} />
 
         <Route path="/signup" element={<Signup />} />
+
+        <Route path="/widget-demo" element={<SupportWidgetDemo />} />
 
             <Route
         path="/dashboard"

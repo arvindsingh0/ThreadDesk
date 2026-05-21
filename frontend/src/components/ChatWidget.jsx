@@ -2,7 +2,7 @@ import { useState } from "react";
 import API from "../services/api";
 
 export default function ChatWidget({
-  tenantKey = "zudio_support_001",
+  tenantKey = "zudio",
   brandName = "Zudio",
 }) {
 
