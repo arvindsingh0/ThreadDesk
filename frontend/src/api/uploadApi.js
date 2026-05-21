@@ -4,12 +4,7 @@ export const uploadPDF = async (formData) => {
 
   const response = await API.post(
     "/upload",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
+    formData
   );
 
   return response.data;

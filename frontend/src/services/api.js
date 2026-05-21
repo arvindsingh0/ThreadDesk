@@ -3,8 +3,13 @@ import axios from "axios";
 
 
 const API = axios.create({
-  baseURL: "https://threaddesk.onrender.com/api",
+  baseURL: import.meta.env.VITE_API_BASE_URL
+    || (import.meta.env.DEV
+      ? "http://localhost:5002/api"
+      : "https://threaddesk.onrender.com/api"),
 });
+
+console.log("API BASE URL:", API.defaults.baseURL);
 
 API.interceptors.request.use((req) => {
 

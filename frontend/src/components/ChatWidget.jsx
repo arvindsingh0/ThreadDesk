@@ -1,7 +1,10 @@
 import { useState } from "react";
 import API from "../services/api";
 
-export default function ChatWidget() {
+export default function ChatWidget({
+  tenantKey = "zudio_support_001",
+  brandName = "Zudio",
+}) {
 
   const [question, setQuestion] = useState("");
 
@@ -36,17 +39,11 @@ export default function ChatWidget() {
 
       setLoading(true);
 
-      const token = localStorage.getItem("token");
-
       const response = await API.post(
-        "/chat",
+        "/chat/public",
         {
           question: currentQuestion,
-        },
-        {
-          headers: {
-            Authorization: token,
-          },
+          tenantKey,
         }
       );
 
@@ -93,7 +90,7 @@ export default function ChatWidget() {
           <div>
 
             <h1 className="text-white font-semibold text-lg">
-              SagaCity Support
+              {brandName} Support Assistant
             </h1>
 
             <p className="text-zinc-400 text-sm">

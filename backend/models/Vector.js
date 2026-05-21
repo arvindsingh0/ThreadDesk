@@ -25,6 +25,11 @@ const vectorSchema = new mongoose.Schema({
   ref: "User",
   required: true,
 },
+tenantKey: {
+  type: String,
+  required: true,
+  index: true,
+}
 
 }, {
   timestamps: true,

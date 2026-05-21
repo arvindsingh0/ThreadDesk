@@ -7,6 +7,17 @@ export const uploadDocument = async (req, res) => {
 
   try {
 
+    const tenantKey = req.body.tenantKey?.trim();
+
+    if (!tenantKey) {
+
+      return res.status(400).json({
+        success: false,
+        message: "Tenant key is required",
+      });
+
+    }
+
     if (!req.file) {
 
       return res.status(400).json({
@@ -34,13 +45,16 @@ export const uploadDocument = async (req, res) => {
         embedding,
         documentName: req.file.originalname,
         uploadedBy: req.user.id,
+        tenantKey,
       });
 
     }
 
     return res.status(200).json({
       success: true,
-      message: "PDF processed successfully",
+      message: `PDF processed successfully for tenant ${tenantKey}`,
+      tenantKey,
+      chunksStored: chunks.length,
     });
 
   } catch (error) {

@@ -8,7 +8,11 @@ function Dashboard() {
 
   const [question, setQuestion] = useState("");
   const [file, setFile] = useState(null);
+  const [tenantKey, setTenantKey] = useState(
+    localStorage.getItem("tenantKey") || ""
+  );
   const [uploading, setUploading] = useState(false);
+  const [uploadStatus, setUploadStatus] = useState("");
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -20,24 +24,33 @@ function Dashboard() {
       return alert("Please select a PDF");
     }
 
+    if (!tenantKey.trim()) {
+      return alert("Please enter a tenant key before uploading");
+    }
+
     try {
 
       setUploading(true);
+      setUploadStatus("");
 
       const formData = new FormData();
 
       formData.append("pdf", file);
-
-      const token = localStorage.getItem("token");
+      formData.append("tenantKey", tenantKey.trim());
 
       const response = await uploadPDF(formData);
+      localStorage.setItem("tenantKey", response.tenantKey);
+      setTenantKey(response.tenantKey);
+      setUploadStatus(
+        `Stored ${response.chunksStored} chunks for ${response.tenantKey}`
+      );
       alert(response.message);
 
     } catch (error) {
 
       console.log(error);
 
-      alert("Upload failed");
+      alert(error.response?.data?.message || "Upload failed");
 
     } finally {
 
@@ -50,6 +63,10 @@ function Dashboard() {
   const handleAsk = async () => {
 
   if (!question.trim()) return;
+
+  if (!tenantKey.trim()) {
+    return alert("Please enter a tenant key before asking questions");
+  }
 
   const userMessage = {
     role: "user",
@@ -65,12 +82,11 @@ function Dashboard() {
 
     setLoading(true);
 
-    const token = localStorage.getItem("token");
-
     const response = await API.post(
       "/chat",
       {
         question,
+        tenantKey: tenantKey.trim(),
       },
       
     );
@@ -91,7 +107,7 @@ function Dashboard() {
 
     console.log(error);
 
-    alert("Chat failed");
+    alert(error.response?.data?.message || "Chat failed");
 
   } finally {
 
@@ -120,6 +136,22 @@ const handleLogout = () => {
         <h1 className="text-2xl font-bold mb-8">
           ThreadDesk
         </h1>
+
+        <div className="mb-4">
+
+          <label className="block text-xs text-zinc-400 mb-2">
+            Tenant key
+          </label>
+
+          <input
+            type="text"
+            value={tenantKey}
+            onChange={(e) => setTenantKey(e.target.value)}
+            placeholder="zudio"
+            className="w-full bg-black border border-zinc-700 rounded-lg px-3 py-2 text-sm outline-none focus:border-white"
+          />
+
+        </div>
 
        <div className="mb-4">
 
@@ -175,6 +207,16 @@ const handleLogout = () => {
               : "Upload PDF"
           }
         </button>
+
+        {
+          uploadStatus && (
+
+            <p className="mt-3 text-xs text-green-400 leading-relaxed">
+              {uploadStatus}
+            </p>
+
+          )
+        }
         <button
         onClick={handleLogout}
         className="w-full mt-auto bg-red-500 hover:bg-red-600 transition py-2 rounded-lg font-medium"
