@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import SupportWidgetDemo from "./pages/SupportWidgetDemo";
+import WidgetFrame from "./pages/WidgetFrame";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 
@@ -20,6 +21,8 @@ function App() {
         <Route path="/signup" element={<Signup />} />
 
         <Route path="/widget-demo" element={<SupportWidgetDemo />} />
+
+        <Route path="/widget-frame" element={<WidgetFrame />} />
 
             <Route
         path="/dashboard"

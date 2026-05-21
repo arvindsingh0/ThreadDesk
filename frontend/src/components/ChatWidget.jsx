@@ -4,6 +4,7 @@ import API from "../services/api";
 export default function ChatWidget({
   tenantKey = "zudio",
   brandName = "Zudio",
+  embedded = false,
 }) {
 
   const [question, setQuestion] = useState("");
@@ -79,9 +80,9 @@ export default function ChatWidget({
 
   return (
 
-    <div className="fixed bottom-6 right-6 z-50">
+    <div className={embedded ? "h-screen w-screen" : "fixed bottom-6 right-6 z-50"}>
 
-      <div className="w-[370px] h-[600px] bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+      <div className={`${embedded ? "h-full w-full" : "w-[370px] h-[600px]"} bg-zinc-950 border border-zinc-800 rounded-2xl shadow-2xl flex flex-col overflow-hidden`}>
 
         {/* Header */}
 
